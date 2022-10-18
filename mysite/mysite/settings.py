@@ -112,6 +112,12 @@ USE_I18N = True
 
 USE_TZ = True
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'neomaddy104@gmail.com'
+EMAIL_HOST_PASSWORD = 'gkiizqlykfgoowqx'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
