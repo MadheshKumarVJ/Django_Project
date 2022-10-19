@@ -26,6 +26,9 @@
         <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
         </li>
         {% endfor %}
+        <p>
+            <a href="{% url "blog:post_feed" %}">Subscribe to my RSS feed</a>
+        </p>
 </ul>
     </div>
 </body>
