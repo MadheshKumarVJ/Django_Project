@@ -1,3 +1,5 @@
+from django.contrib.postgres.search import SearchVector
+from .forms import EmailPostForm, CommentForm, SearchForm
 from django.shortcuts import render, get_object_or_404
 from .models import Post, Comment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -35,6 +37,7 @@ def post_list(request, tag_slug=None):
                                                    'posts': posts,
                                                    'tag': tag})
 
+
 def post_detail(request, year, month, day, post):
     post = get_object_or_404(Post, slug=post,
                              status='published',
@@ -44,8 +47,10 @@ def post_detail(request, year, month, day, post):
     comments = post.comments.filter(active=True)
     new_comment = None
     post_tags_ids = post.tags.values_list('id', flat=True)
-    similar_posts = Post.published.filter(tags__in=post_tags_ids).exclude(id=post.id)
-    similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags','-publish')[:4]
+    similar_posts = Post.published.filter(
+        tags__in=post_tags_ids).exclude(id=post.id)
+    similar_posts = similar_posts.annotate(same_tags=Count(
+        'tags')).order_by('-same_tags', '-publish')[:4]
     if request.method == 'POST':
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
@@ -74,3 +79,18 @@ def post_share(request, post_id):
     return render(request, 'blog/post/share.html', {'post': post,
                                                     'form': form,
                                                     'sent': sent})
+
+
+def post_search(request):
+    form = SearchForm()
+    query = None
+    results = []
+    if 'query' in request.GET:
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            results = Post.published.annotate(search=SearchVector('title', 'body'),).filter(search=query)
+    return render(request, 'blog/post/search.html',
+                  {'form': form,
+                   'query': query,
+                   'results': results})
