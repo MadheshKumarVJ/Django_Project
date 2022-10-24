@@ -85,9 +85,14 @@ DATABASES = {
 }
 
 
+SOCIAL_AUTH_FACEBOOK_KEY = '1066850304714597' # Facebook App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = 'daf85ef0950cb28a6524fdde30ce250e' # Facebook App Secret
+#SOCIAL_AUTH_FACEBOOK_SCOPE = ['vjmadheshkumarofficial@gmail.com']
+
 AUTHENTICATION_BACKENDS = [
  'django.contrib.auth.backends.ModelBackend',
  'account.authentication.EmailAuthBackend',
+ 'social_core.backends.facebook.FacebookOAuth2',
 ]
 
 
@@ -125,7 +130,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
