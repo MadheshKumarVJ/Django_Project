@@ -89,10 +89,14 @@ SOCIAL_AUTH_FACEBOOK_KEY = '1066850304714597' # Facebook App ID
 SOCIAL_AUTH_FACEBOOK_SECRET = 'daf85ef0950cb28a6524fdde30ce250e' # Facebook App Secret
 #SOCIAL_AUTH_FACEBOOK_SCOPE = ['vjmadheshkumarofficial@gmail.com']
 
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '487535257780-hrauf97vufndt8j0jce3ccv5159fvbk8.apps.googleusercontent.com' # Google Consumer Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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' # Google Consumer Secret
+
 AUTHENTICATION_BACKENDS = [
  'django.contrib.auth.backends.ModelBackend',
  'account.authentication.EmailAuthBackend',
  'social_core.backends.facebook.FacebookOAuth2',
+ 'social_core.backends.google.GoogleOAuth2',
 ]
 
 
